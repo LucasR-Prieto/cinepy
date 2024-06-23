@@ -4,7 +4,7 @@ import Alamofire
 
 class HTTP {
     let baseURL = "https://api.themoviedb.org/3"
-    let apiKey = ""
+    let apiKey = ApiKey.apiKey
 
     func getRequest<T: Decodable>(endpoint: String, parameters: [String: Any]? = nil, responseType: T.Type = T.self, view: UIView ,completion: @escaping (Result<T, Error>) -> Void) {
         let url = "\(baseURL)\(endpoint)?api_key=\(apiKey)"

@@ -23,6 +23,7 @@
 		A0317F962C261423000B8AEE /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A0317F952C261423000B8AEE /* Kingfisher */; };
 		A0317F982C2619F6000B8AEE /* homeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0317F972C2619F6000B8AEE /* homeViewModel.swift */; };
 		A0317F9A2C2621D4000B8AEE /* MovieCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0317F992C2621D4000B8AEE /* MovieCardCollectionViewCell.swift */; };
+		A03D4DFB2C27CB17008CCC7B /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03D4DFA2C27CB17008CCC7B /* ApiKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		A0317F922C2611D8000B8AEE /* MovieCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCardView.swift; sourceTree = "<group>"; };
 		A0317F972C2619F6000B8AEE /* homeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewModel.swift; sourceTree = "<group>"; };
 		A0317F992C2621D4000B8AEE /* MovieCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		A03D4DFA2C27CB17008CCC7B /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				A02F187F2C273AAB00D5267A /* LoadingView.swift */,
+				A03D4DFA2C27CB17008CCC7B /* ApiKey.swift */,
 			);
 			path = Componets;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				A0317F882C25E3FE000B8AEE /* ContentCardsViewHome.swift in Sources */,
 				A0317F6E2C25D527000B8AEE /* ViewController.swift in Sources */,
 				A0317F932C2611D8000B8AEE /* MovieCardView.swift in Sources */,
+				A03D4DFB2C27CB17008CCC7B /* ApiKey.swift in Sources */,
 				A0317F9A2C2621D4000B8AEE /* MovieCardCollectionViewCell.swift in Sources */,
 				A0317F6A2C25D527000B8AEE /* AppDelegate.swift in Sources */,
 				A0317F6C2C25D527000B8AEE /* SceneDelegate.swift in Sources */,
