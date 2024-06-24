@@ -25,4 +25,20 @@ struct HomeViewModel {
             }
         }
     }
+    
+    func getMoviesPopulars(view: UIView   ,completion: @escaping (Result<MovieResponse, Error>) -> Void) {
+        HTTP().getRequest(endpoint: "/movie/popular", responseType: MovieResponse.self , view: view  ) { result in
+            switch result {
+            case .success(let response):
+                for movie in response.results {
+                    print("Movie: \(movie.title)")
+                    print("Movie: \(movie.backdropPathUrl)")
+                }
+                completion(.success(response))
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                completion(.failure(error))
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 import UIKit
 
 class CardsViewHome: UIView {
+    var  widthCollection: CGFloat?
     
     var movies: [Movie] = [] {
         didSet {
@@ -61,9 +62,7 @@ class CardsViewHome: UIView {
         ])
     }
     
-//    private func updateItemCountLabel() {
-//        itemCountLabel.text = "\(movies.count) películas"
-//    }
+
 }
 
 
@@ -94,20 +93,22 @@ extension CardsViewHome: UICollectionViewDelegate ,UICollectionViewDataSource , 
         let selectedMovie = movies[indexPath.item]
 
     }
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        cell.alpha = 0
-        let transform = CGAffineTransform(translationX: 0, y: -50)
-        cell.transform = transform
-        
-        UIView.animate(withDuration: 0.3, delay: 0.05 * Double(indexPath.item), options: [.curveEaseInOut], animations: {
-            cell.alpha = 1
-            cell.transform = .identity
-        }, completion: nil)
-    }
+    
+//    //AGREGA ANIMACION
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        cell.alpha = 0
+//        let transform = CGAffineTransform(translationX: 0, y: -50)
+//        cell.transform = transform
+//        
+//        UIView.animate(withDuration: 0.3, delay: 0.05 * Double(indexPath.item), options: [.curveEaseInOut], animations: {
+//            cell.alpha = 1
+//            cell.transform = .identity
+//        }, completion: nil)
+//    }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-           return CGSize(width: 250, height: collectionView.bounds.height)
+        return CGSize(width: widthCollection ?? 200, height: collectionView.bounds.height)
        }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

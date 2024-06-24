@@ -12,7 +12,15 @@ class ViewController: UIViewController {
     
     private let titleView: UILabel = {
         let title = UILabel()
-        title.text = "Peliculas en Carteleta"
+        title.text = "Peliculas en Cartelera"
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.font = UIFont.boldSystemFont(ofSize: 20)
+        return title
+    }()
+    
+    private let titlePopularsView: UILabel = {
+        let title = UILabel()
+        title.text = "Peliculas Populares"
         title.translatesAutoresizingMaskIntoConstraints = false
         title.font = UIFont.boldSystemFont(ofSize: 20)
         return title
@@ -30,10 +38,33 @@ class ViewController: UIViewController {
         return view
     }()
     
+    private let containerMoviePopular :UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+        
+    }()
+    
+    private let cardsViewNowPaying: CardsViewHome = {
+        let view = CardsViewHome()
+        view.widthCollection = 320
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    
+    private let cardsViewMoviePopulars: CardsViewHome = {
+        let view = CardsViewHome()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupScrollView()
         getMovies()
+        getMoviesPopulars()
     }
     
     private func setupScrollView() {
@@ -65,21 +96,38 @@ class ViewController: UIViewController {
         }
     }
     
+    func getMoviesPopulars() {
+        viewModel.getMoviesPopulars(view: view) { result in
+            switch result {
+            case .success(let response):
+                self.addListMoviesPopular(movies: response.results)
+                print("dibujamos la pantalla de peliculas populares")
+            case .failure(_):
+                print("no funco")
+            }
+        }
+        
+    }
+    
+    func addListMoviesPopular (movies: [Movie]){
+        self.containerMoviePopular.addSubview(self.cardsViewMoviePopulars)
+        
+        
+        self.cardsViewMoviePopulars.movies = Array(movies.prefix(5))
+        
+        NSLayoutConstraint.activate([
+            cardsViewMoviePopulars.topAnchor.constraint(equalTo: containerMoviePopular.topAnchor),
+            cardsViewMoviePopulars.leadingAnchor.constraint(equalTo: containerMoviePopular.leadingAnchor),
+            cardsViewMoviePopulars.trailingAnchor.constraint(equalTo: containerMoviePopular.trailingAnchor),
+            cardsViewMoviePopulars.bottomAnchor.constraint(equalTo: containerMoviePopular.bottomAnchor)
+        ])
+        
+        
+    }
+    
     func addListMovies(movies: [Movie]) {
-        let cardsView = CardsViewHome()
-        cardsView.movies = movies
-        cardsView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        let View1 :UIView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.backgroundColor = .yellow
-            
-            return view
-            
-        }()
-        
+        self.cardsViewNowPaying.movies = Array(movies.prefix(5))
+                
         let View2 :UIView = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -98,28 +146,38 @@ class ViewController: UIViewController {
         }()
         
         contentView.addSubview(titleView)
-        contentView.addSubview(cardsView)
-        contentView.addSubview(View1)
+        contentView.addSubview(cardsViewNowPaying)
+        contentView.addSubview(titlePopularsView)
+        
+        contentView.addSubview(containerMoviePopular)
         contentView.addSubview(View2)
         contentView.addSubview(View3)
+        
+        
+        View2.isHidden = true
+        View3.isHidden = true
+
         
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             titleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
 
-            cardsView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
-            cardsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            cardsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            cardsView.heightAnchor.constraint(equalToConstant: 350),
+            cardsViewNowPaying.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 20),
+            cardsViewNowPaying.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            cardsViewNowPaying.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            cardsViewNowPaying.heightAnchor.constraint(equalToConstant: 250),
+            
+            titlePopularsView.topAnchor.constraint(equalTo: cardsViewNowPaying.bottomAnchor, constant: 20),
+            titlePopularsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             
             
-            View1.topAnchor.constraint(equalTo: cardsView.bottomAnchor , constant: 20),
-            View1.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            View1.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            View1.heightAnchor.constraint(equalToConstant: 200),
+            containerMoviePopular.topAnchor.constraint(equalTo: titlePopularsView.bottomAnchor , constant: 20),
+            containerMoviePopular.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerMoviePopular.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerMoviePopular.heightAnchor.constraint(equalToConstant: 250),
             
             
-            View2.topAnchor.constraint(equalTo: View1.bottomAnchor , constant: 20),
+            View2.topAnchor.constraint(equalTo: containerMoviePopular.bottomAnchor , constant: 20),
             View2.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             View2.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             View2.heightAnchor.constraint(equalToConstant: 200),
@@ -129,10 +187,8 @@ class ViewController: UIViewController {
             View3.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             View3.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             View3.heightAnchor.constraint(equalToConstant: 200),
-            View3.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20) // This makes the bottom of cardsView 20 puntos por encima de contentView bottom
+            View3.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
 
-
-            
             
         ])
     }
