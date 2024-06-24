@@ -1,6 +1,11 @@
 import UIKit
 
+protocol CardsViewHomeDelegate: AnyObject {
+    func didSelectMovie(_ movie: Movie)
+}
+
 class CardsViewHome: UIView {
+    weak var delegate: CardsViewHomeDelegate?
     var  widthCollection: CGFloat?
     
     var movies: [Movie] = [] {
@@ -91,6 +96,7 @@ extension CardsViewHome: UICollectionViewDelegate ,UICollectionViewDataSource , 
         print("Se seleccionó la película en el índice: \(movies[indexPath.item].title)")
         
         let selectedMovie = movies[indexPath.item]
+        delegate?.didSelectMovie(selectedMovie)
 
     }
     

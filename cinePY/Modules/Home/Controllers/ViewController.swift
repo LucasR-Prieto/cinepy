@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     let viewModel: HomeViewModel = HomeViewModel()
+    var getNowPaying = false
     
     private let titleView: UILabel = {
         let title = UILabel()
@@ -62,9 +63,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        cardsViewNowPaying.delegate = self
+        cardsViewMoviePopulars.delegate = self
+
+        view.backgroundColor = .white
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+
         setupScrollView()
         getMovies()
         getMoviesPopulars()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     private func setupScrollView() {
@@ -89,8 +101,10 @@ class ViewController: UIViewController {
         viewModel.getMovies(view: view) { result in
             switch result {
             case .success(let response):
+                self.getNowPaying = true
                 self.addListMovies(movies: response.results)
             case .failure(_):
+                self.getNowPaying = false
                 print("no funco")
             }
         }
@@ -110,19 +124,45 @@ class ViewController: UIViewController {
     }
     
     func addListMoviesPopular (movies: [Movie]){
-        self.containerMoviePopular.addSubview(self.cardsViewMoviePopulars)
-        
-        
-        self.cardsViewMoviePopulars.movies = Array(movies.prefix(5))
-        
-        NSLayoutConstraint.activate([
-            cardsViewMoviePopulars.topAnchor.constraint(equalTo: containerMoviePopular.topAnchor),
-            cardsViewMoviePopulars.leadingAnchor.constraint(equalTo: containerMoviePopular.leadingAnchor),
-            cardsViewMoviePopulars.trailingAnchor.constraint(equalTo: containerMoviePopular.trailingAnchor),
-            cardsViewMoviePopulars.bottomAnchor.constraint(equalTo: containerMoviePopular.bottomAnchor)
-        ])
-        
-        
+
+        if getNowPaying {
+            self.containerMoviePopular.addSubview(self.cardsViewMoviePopulars)
+            
+            self.cardsViewMoviePopulars.movies = Array(movies.prefix(5))
+            
+            NSLayoutConstraint.activate([
+                cardsViewMoviePopulars.topAnchor.constraint(equalTo: containerMoviePopular.topAnchor),
+                cardsViewMoviePopulars.leadingAnchor.constraint(equalTo: containerMoviePopular.leadingAnchor),
+                cardsViewMoviePopulars.trailingAnchor.constraint(equalTo: containerMoviePopular.trailingAnchor),
+                cardsViewMoviePopulars.bottomAnchor.constraint(equalTo: containerMoviePopular.bottomAnchor)
+            ])
+            
+        }else {
+            contentView.addSubview(titlePopularsView)
+            contentView.addSubview(containerMoviePopular)
+            self.containerMoviePopular.addSubview(self.cardsViewMoviePopulars)
+            self.cardsViewMoviePopulars.movies = Array(movies.prefix(5))
+            
+            NSLayoutConstraint.activate([
+                titlePopularsView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+                titlePopularsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+                
+                containerMoviePopular.topAnchor.constraint(equalTo: titlePopularsView.bottomAnchor , constant: 20),
+                containerMoviePopular.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                containerMoviePopular.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                containerMoviePopular.heightAnchor.constraint(equalToConstant: 250),
+                
+                cardsViewMoviePopulars.topAnchor.constraint(equalTo: containerMoviePopular.topAnchor, constant: 20),
+                cardsViewMoviePopulars.leadingAnchor.constraint(equalTo: containerMoviePopular.leadingAnchor),
+                cardsViewMoviePopulars.trailingAnchor.constraint(equalTo: containerMoviePopular.trailingAnchor),
+                cardsViewMoviePopulars.heightAnchor.constraint(equalToConstant: 250),
+
+                cardsViewMoviePopulars.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+                
+            ])
+            
+        }
+
     }
     
     func addListMovies(movies: [Movie]) {
@@ -191,6 +231,14 @@ class ViewController: UIViewController {
 
             
         ])
+    }
+}
+
+extension ViewController: CardsViewHomeDelegate {
+    func didSelectMovie(_ movie: Movie) {
+        let detailVC = MoreDetailViewController()
+        detailVC.ItemMovie = movie
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

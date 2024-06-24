@@ -24,6 +24,7 @@
 		A0317F982C2619F6000B8AEE /* homeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0317F972C2619F6000B8AEE /* homeViewModel.swift */; };
 		A0317F9A2C2621D4000B8AEE /* MovieCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0317F992C2621D4000B8AEE /* MovieCardCollectionViewCell.swift */; };
 		A03D4DFB2C27CB17008CCC7B /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03D4DFA2C27CB17008CCC7B /* ApiKey.swift */; };
+		A0C2F4B92C29B47C00714FDA /* MoreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2F4B82C29B47C00714FDA /* MoreDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		A0317F972C2619F6000B8AEE /* homeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewModel.swift; sourceTree = "<group>"; };
 		A0317F992C2621D4000B8AEE /* MovieCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		A03D4DFA2C27CB17008CCC7B /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
+		A0C2F4B82C29B47C00714FDA /* MoreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 		A0317F862C25E373000B8AEE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A0C2F4B82C29B47C00714FDA /* MoreDetailViewController.swift */,
 				A0317F6D2C25D527000B8AEE /* ViewController.swift */,
 			);
 			path = Controllers;
@@ -247,6 +250,7 @@
 				A0317F932C2611D8000B8AEE /* MovieCardView.swift in Sources */,
 				A03D4DFB2C27CB17008CCC7B /* ApiKey.swift in Sources */,
 				A0317F9A2C2621D4000B8AEE /* MovieCardCollectionViewCell.swift in Sources */,
+				A0C2F4B92C29B47C00714FDA /* MoreDetailViewController.swift in Sources */,
 				A0317F6A2C25D527000B8AEE /* AppDelegate.swift in Sources */,
 				A0317F6C2C25D527000B8AEE /* SceneDelegate.swift in Sources */,
 				A0317F8A2C25FA84000B8AEE /* HTTP.swift in Sources */,
